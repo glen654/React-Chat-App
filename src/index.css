@@ -25,5 +25,6 @@ body{
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.125);
   display: flex;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
