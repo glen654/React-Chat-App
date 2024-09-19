@@ -29,7 +29,8 @@ const Chat = () => {
       </div>
 
       <div className="center">
-        <div className="message own">
+        <div className="message">
+          <img src="../../../public/assets/avatar.svg" alt="" />
           <div className="texts">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
               Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
@@ -39,6 +40,16 @@ const Chat = () => {
           </div>
         </div>
         <div className="message own">
+          <div className="texts">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+              Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
+              Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        <div className="message">
+          <img src="../../../public/assets/avatar.svg" alt="" />
           <div className="texts">
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
               Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
