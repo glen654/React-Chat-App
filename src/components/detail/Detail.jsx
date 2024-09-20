@@ -18,7 +18,7 @@ const Detail = () => {
         </div>
         <div className="option">
           <div className="title">
-            <span>Privacy % Help</span>
+            <span>Privacy & help</span>
             <img src="../../../public/assets/arrowUp.png" alt="" />
           </div>
         </div>
@@ -33,28 +33,28 @@ const Detail = () => {
                 <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
                 <span>photo_2024_2.png</span>
               </div>
-             <img src="../../../public/assets/download.png" alt="" />
+             <img src="../../../public/assets/download.png" alt="" className='icons'/>
             </div>
             <div className="photoItem">
               <div className="photoDetail">
                 <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
                 <span>photo_2024_2.png</span>
               </div>
-             <img src="../../../public/assets/download.png" alt="" />
+             <img src="../../../public/assets/download.png" alt="" className='icons'/>
             </div>
             <div className="photoItem">
               <div className="photoDetail">
                 <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
                 <span>photo_2024_2.png</span>
               </div>
-             <img src="../../../public/assets/download.png" alt="" />
+             <img src="../../../public/assets/download.png" alt="" className='icons'/>
             </div>
             <div className="photoItem">
               <div className="photoDetail">
                 <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
                 <span>photo_2024_2.png</span>
               </div>
-             <img src="../../../public/assets/download.png" alt="" />
+             <img src="../../../public/assets/download.png" alt="" className='icons'/>
             </div>
           </div>
         </div>
