@@ -60,6 +60,7 @@ const Chat = () => {
         </div>
         <div className="message own">
           <div className="texts">
+            <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
               Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
               Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
