@@ -4,12 +4,12 @@ import './Login.css'
 const Login = () => {
   return (
     <div className="login">
-        <img src="../../../public/assets/chat.png" alt="" />
+        <img src="../../../public/assets/meetme.png" alt="" />
         <form className='login-form'>
             <h2>Sign Up</h2>
             <input type="text" placeholder="Username" className="form-input" required/>
-            <input type="email" placeholder='Email address' className="form-input" />
-            <input type="password" placeholder='password' className="form-input" />
+            <input type="email" placeholder='Email address' className="form-input" required/>
+            <input type="password" placeholder='password' className="form-input" required/>
             <button type='submit'>Sign Up</button>
             <div className="login-term">
                 <input type="checkbox" />
