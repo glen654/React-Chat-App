@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Chat.css'
 import EmojiPicker from 'emoji-picker-react'
-import { doc,onSnapshot } from 'firebase/firestore'
+import { arrayUnion, doc,getDoc,onSnapshot, updateDoc } from 'firebase/firestore'
 import {db} from '../../lib/firebase'
-import { useChatStore } from '../../../lib/chatStore';
+import { useChatStore } from '../../lib/chatStore'
+import { useUserStore } from '../../lib/userStore'
 
 const Chat = () => {
   const [chat,setChat] = useState()
   const [open,setOpen] = useState(false)
   const [text,setText] = useState("")
 
-  const { chatId } = useChatStore()
+  const { chatId , user } = useChatStore()
+  const { currentUser } = useUserStore()
 
   const endRef = useRef(null)
 
@@ -34,6 +36,46 @@ const Chat = () => {
     setOpen(false)
   }
 
+  const handleSend = async () => {
+    if(text === "") return;
+
+    try {
+
+      await updateDoc(doc(db,"chats", chatId),{
+        messages:arrayUnion({
+          senderId: currentUser.id,
+          text,
+          createdAt: new Date(),
+
+        })
+      })
+
+      const userIds = [currentUser.id, user.id];
+
+      userIds.forEach(async (id) => {
+        const userChatsRef = doc(db,"userchats",id)
+        const userChatsSnapshot = await getDoc(userChatsRef)
+
+        if(userChatsSnapshot.exists()){
+          const userChatsData = userChatsSnapshot.data()
+
+          const chatIndex = userChatsData.chats.findIndex(c => c.chatId === chatId)
+
+          userChatsData.chats[chatIndex].lastMessage = text;
+          userChatsData.chats[chatIndex].isSeen = id === currentUser.id ? true : false;
+          userChatsData.chats[chatIndex].updatedAt = Date.now();
+
+          await updateDoc(userChatsRef, {
+            chats:userChatsData.chats,
+
+          });
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className='chat'>
       <div className="top">
@@ -52,45 +94,18 @@ const Chat = () => {
       </div>
 
       <div className="center">
-        <div className="message">
-          <img src="../../../public/assets/avatar.svg" alt="" />
+        {chat?.messages?.map(message=>(
+          <div className="message own" key={message?.createAt}>
           <div className="texts">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
-              Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
+            {message.img && <img src={message.img} alt="" />}
+            <p>
+              {message.text}
             </p>
             <span>1 min ago</span>
           </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
-              Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
-            </p>
-            <span>1 min ago</span>
           </div>
-        </div>
-        <div className="message">
-          <img src="../../../public/assets/avatar.svg" alt="" />
-          <div className="texts">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
-              Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <img src="https://img.freepik.com/free-photo/abstract-autumn-beauty-multi-colored-leaf-vein-pattern-generated-by-ai_188544-9871.jpg?w=1380&t=st=1726809724~exp=1726810324~hmac=6acb917b719e43caeb8badb4f2cec2b5d7623334833a49b335de2e6a7d46b6fb" alt="" />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Suscipit dicta blanditiis ab, fugiat ut consectetur quod laudantium optio? 
-              Enim vitae recusandae esse tempore delectus maiores molestiae ullam cupiditate maxime earum?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
+        ))}
+        
         <div ref={endRef}></div>
       </div>
 
@@ -107,7 +122,7 @@ const Chat = () => {
             <EmojiPicker open={open} onEmojiClick={handleEmoji}/>
           </div>
         </div>
-        <button className="sendButton">Send</button>
+        <button className="sendButton" onClick={handleSend}>Send</button>
       </div>
     </div>
   )
