@@ -9,7 +9,7 @@ const ChatList = () => {
   const [chats,setChats] = useState([]);
   const [addMode,setAddMode] = useState(false);
 
-  const {currentUser} = useUserStore()
+  const {currentUser} = useUserStore();
 
   useEffect(()=> {
     const unSub = onSnapshot(doc(db, "userchats", currentUser.id),async (res) => {
@@ -24,9 +24,9 @@ const ChatList = () => {
           return {...item, user };
       });
 
-      const chatData = await Promise.all(promises)
+      const chatData = await Promise.all(promises);
 
-      setChats(chatData.sort((a,b) => b.updatedAt - a.updatedAt))
+      setChats(chatData.sort((a,b) => b.updatedAt - a.updatedAt));
 
     });
 
