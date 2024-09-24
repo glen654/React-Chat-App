@@ -74,9 +74,9 @@ const ChatList = () => {
         </div>
         {chats.map((chat) => {
             <div className="item" key={chat.chatId} onClick={() => handleSelect(chat)} style={{backgroundColor: chat?.isSeen ? "transparent" : "#5183fe"}}>
-            <img src={chat.user.avatar || '../../../../public/assets/avatar.svg'} alt="" />
+            <img src={chat.user.blocked.includes(currentUser.id) ? "../../../../public/assets/avatar.svg" : chat.user.avatar || "../../../../public/assets/avatar.svg"} alt="" />
             <div className="texts">
-              <span>{chat.user.username}</span>
+              <span>{chat.user.blocked.includes(currentUser.id) ? "User" : chat.user.username}</span>
               <p>{chat.lastMessage}</p>
             </div>
           </div>

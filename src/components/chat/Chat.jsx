@@ -16,7 +16,7 @@ const Chat = () => {
     url:"",
   })
 
-  const { chatId , user } = useChatStore()
+  const { chatId , user, isCurrentUserBlocked, isReceiverBlocked } = useChatStore()
   const { currentUser } = useUserStore()
 
   const endRef = useRef(null)
@@ -108,9 +108,9 @@ const Chat = () => {
     <div className='chat'>
       <div className="top">
         <div className="user">
-          <img src="../../../public/assets/avatar.svg" alt="" />
+          <img src={user?.avatar || "../../../public/assets/avatar.svg"} alt="" />
           <div className="texts">
-            <span>Jane Doe</span>
+            <span>{user?.username}</span>
             <p>Lorem ipsum dolor, sit amet.</p>
           </div>
         </div>
@@ -123,7 +123,7 @@ const Chat = () => {
 
       <div className="center">
         {chat?.messages?.map(message=>(
-          <div className="message own" key={message?.createAt}>
+          <div className={message.senderId === currentUser?.id ? "message own" : "message"} key={message?.createAt}>
           <div className="texts">
             {message.img && <img src={message.img} alt="" />}
             <p>
@@ -150,14 +150,15 @@ const Chat = () => {
           <img src="../../../public/assets/camera.png" alt="" />
           <img src="../../../public/assets/mic.png" alt="" />
         </div>
-        <input type="text" placeholder='Type a message...' value={text} onChange={event=>setText(event.target.value)}/>
+        <input type="text" placeholder={(isCurrentUserBlocked || isReceiverBlocked) ? "You cannot send a message" : "Type a message..."} 
+        value={text} onChange={event=>setText(event.target.value)} disabled={isCurrentUserBlocked || isReceiverBlocked}/>
         <div className="emoji">
           <img src="../../../public/assets/emoji.png" alt="" onClick={() => setOpen((prev) => !prev)}/>
           <div className="picker">
             <EmojiPicker open={open} onEmojiClick={handleEmoji}/>
           </div>
         </div>
-        <button className="sendButton" onClick={handleSend}>Send</button>
+        <button className="sendButton" onClick={handleSend} disabled={isCurrentUserBlocked || isReceiverBlocked}>Send</button>
       </div>
     </div>
   )
