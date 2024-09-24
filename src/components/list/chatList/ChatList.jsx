@@ -44,7 +44,7 @@ const ChatList = () => {
       return rest;
     })
 
-    const chatIndex = userChats.findIndex(item=>item.chatId === chat.chatId)
+    const chatIndex = userChats.findIndex((item)=>item.chatId === chat.chatId)
 
     userChats[chatIndex].isSeen = true;
 
