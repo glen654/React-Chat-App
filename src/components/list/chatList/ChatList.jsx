@@ -9,6 +9,7 @@ import { useChatStore } from '../../../lib/chatStore';
 const ChatList = () => {
   const [chats,setChats] = useState([]);
   const [addMode,setAddMode] = useState(false);
+  const [input,setInput] = useState("");
 
   const {currentUser} = useUserStore();
   const {chatId,changeChat} = useChatStore();
@@ -62,17 +63,21 @@ const ChatList = () => {
     
   }
 
+  const filteredChats = chats.filter(c => 
+    c.user.username.toLowerCase().includes(input.toLowerCase())
+  )
+
   return (
     <div className='chatList'>
         <div className="search">
            <div className="searchBar">
                 <img src="../../../../public/assets/search.svg" alt="" />
-                <input type="text" placeholder='Search'/>
+                <input type="text" placeholder='Search' onChange={(event)=>setInput(event.target.value)}/>
            </div>
            <img src={addMode ? "../../../../public/assets/minus.svg" : "../../../../public/assets/plus.svg"} alt="" className='add' 
            onClick={() => setAddMode((prev) => !prev)}/>
         </div>
-        {chats.map((chat) => {
+        {filteredChats.map((chat) => {
             <div className="item" key={chat.chatId} onClick={() => handleSelect(chat)} style={{backgroundColor: chat?.isSeen ? "transparent" : "#5183fe"}}>
             <img src={chat.user.blocked.includes(currentUser.id) ? "../../../../public/assets/avatar.svg" : chat.user.avatar || "../../../../public/assets/avatar.svg"} alt="" />
             <div className="texts">
