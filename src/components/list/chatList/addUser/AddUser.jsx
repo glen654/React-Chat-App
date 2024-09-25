@@ -61,8 +61,9 @@ const AddUser = () => {
         }),
       });
 
+      console.log("User added to chat successfully")
     } catch (error) {
-      console.log(error)
+      console.log("Error adding user to chat :",error)
     }
   }
 
